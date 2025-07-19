@@ -1,25 +1,19 @@
 class Die
 
+  private
+
+  attr_writer :sides
+
   def initialize(sides = 6)
-    self.sides = sides
+    self.sides = (1..sides).to_a
   end
+
+  public
+
+  attr_reader :sides
 
   def roll
-    rand(1.. self.sides)
+    sides.sample
   end
 
 end
-
-=begin
-class Dice
-  include Die
-
-  def dice_throw(dice, sides, top = nil, bottom = nil, middle = nil)
-    value = []
-    (1..dice).each do
-      value.push(Die.roll)
-    end
-  end
-
-end
-=end

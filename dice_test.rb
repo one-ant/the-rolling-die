@@ -2,12 +2,13 @@ require 'minitest/autorun'
 require_relative 'dice'
 
 class DiceTest < Minitest::Test
-  def roll_test
-    die = Die.new
-    allowed_range = (1..sides)
-    informative_message = %q(One roll's result %s must be within %s)
 
-    assert_includes allowed_range, die.roll,
-        informative_message % [roll, allowed_range]
+  def test_single_roll_is_within_limits
+    roll = Die.new.roll
+    range = (1..6)
+    message = %q(One roll's result %<roll>s must be within %<range>s)
+
+    assert_includes range, roll, message % {roll:, range:}
   end
+
 end

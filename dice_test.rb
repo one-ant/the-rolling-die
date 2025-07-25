@@ -11,4 +11,10 @@ class DiceTest < Minitest::Test
     assert_includes range, roll, message % {roll:, range:}
   end
 
+  def test_knows_itself
+    description = Die.new.description
+    sides ='6-sided' 
+    assert_equal description, sides % {description:, sides:}
+  end
+
 end

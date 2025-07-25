@@ -1,38 +1,38 @@
 class Die
 
+  SIDES = 6 # our default dimension for sides
+
   private
 
-  attr_writer :sides
+  attr_writer :sides, :rolled, :description
 
-  def initialize(sides = 6)
-    # Makes an array of variable number of sides
-    self.sides = (1..sides).to_a
+  def initialize(sides = SIDES)
+    # Range of given number of sides
+    self.sides = (1..sides)
+    self.description = '%<sides>s-sided' % {sides:}
   end
 
   public
 
-  attr_reader :sides
+  attr_reader :sides, :rolled, :description
 
   def roll
-    # Randomly selects an item from the initial array
-    sides.sample
+    # Use Kernel#rand for random number generator
+    self.rolled = rand(sides)
   end
 
-  def multiple_rolls(rolls = 4, keep_max = nil, keep_min = nil)
-    # Returns an array of values
-    values = []
-    (1..rolls).each do
-      values.push(self.roll)
-    end
-    # Select all or some values to return
-    if keep_max
-      selection = values.max(keep_max)
-    elsif keep_min
-      selection = values.min(keep_min)
-    else
-      selection = values
-    end
-    selection
+  def to_s
+    description
   end
+
+  def to_i
+    rolled.to_i
+  end
+
+  def to_int
+    to_i
+  end
+
+  alias value to_i
 
 end

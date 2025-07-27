@@ -3,8 +3,6 @@ require_relative 'dice'
 
 class DiceTest < Minitest::Test
 
-  SIDES = 6 # default dimension for the sides
-
   def test_single_roll_is_within_limits
     roll = Die.new.roll
     range = (1..6)
@@ -13,10 +11,16 @@ class DiceTest < Minitest::Test
     assert_includes range, roll, message % {roll:, range:}
   end
 
-  def test_knows_itself(sides = SIDES)
-    description = Die.new.description
-    exêcted_description = '%<sides>s-sided' % {sides:}
-    assert_equal description, sides % {description:, sides:}
+  def test_knows_it_self
+    actual = Die.new.description
+    expected = '6-sided'
+    assert_equal expected, actual, 'The description should be %<expected>s'
+  end
+
+  def test_allows_for_4_sides
+    actual = Die.new(4).description
+    expected = '4-sided'
+    assert_equal expected, actual, 'The description should be %<expected>s'
   end
 
 end
